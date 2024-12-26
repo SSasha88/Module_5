@@ -14,6 +14,7 @@ class House:
                 print( f'{self.name}, этаж:', floor)
         else:
             print(f'В {self.name} Такого этажа не существует')
+
     #Метод для сравнения количества этажей
     def __eq__(self, other):
         if isinstance(other, House):
@@ -35,12 +36,57 @@ class House:
         elif isinstance(other, int):
             return self.number_of_floors <= other
 
+    # Метод для проверки больше чем (>)
+    def __gt__(self, other):
+        if isinstance(other, House):
+            return self.number_of_floors > other.number_of_floors
+        elif isinstance(other, int):
+            return self.number_of_floors > other
+
+    # Метод для проверки больше либо равно (>=)
+    def __ge__(self, other):
+        if isinstance(other, House):
+            return self.number_of_floors >= other.number_of_floors
+        elif isinstance(other, int):
+            return self.number_of_floors >= other
+
+    # Метод для проверки неравенства (!=)
+    def __ne__(self, other):
+        if isinstance(other, House):
+             return self.number_of_floors != other.number_of_floors
+        elif isinstance(other, int):
+            return self.number_of_floors != other
+
+    # Метод для сложения add (увеличение числа этажей)
+    # Метод для сложения справа radd (работает аналогично add)
+    # Mетод для сложения с присваиванием iadd (+=) (работает аналогично add)
+    def __add__(self, value):
+        if isinstance(value, int):
+            self.number_of_floors += value
+            return self
+
+    def __radd__(self, value):
+        if isinstance(value, int):
+            self.number_of_floors += value
+            return self
+
 
 h1 = House('ЖК Эльбрус', 10)
 h2 = House('ЖК Акация', 20)
-#h2 = [2, 3]
+
 print(h1)
 print(h2)
 print('"h1=h2"', h1 == h2) # __eq__
 print('"h1<h2"', h1 < h2) # __lt__
 print('"h1<=h2"', h1 <= h2) # __le__
+print('"h1>h2"', h1 > h2) #  __gt__
+print('"h1>=h2"', h1 >= h2) # __ge__
+print('"h1!=h2"', h1 != h2) # __ne__
+
+h1 = h1 + 10               # __add__
+print('"h1 + 10"',h1)
+
+h1 += 10                 # __iadd__
+print('"h1 += 10"',h1)
+h2 = 10 + h2             # __radd__
+print('"h2 = 10 + h2"', h2)
